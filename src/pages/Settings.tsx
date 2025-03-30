@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -17,6 +16,13 @@ const Settings = () => {
   const handleSaveSettings = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
+    toast({
+      title: "Settings Saved",
+      description: "Your settings have been saved successfully.",
+    });
+  };
+  
+  const handleSaveButtonClick = () => {
     toast({
       title: "Settings Saved",
       description: "Your settings have been saved successfully.",
@@ -167,7 +173,7 @@ const Settings = () => {
                 </div>
               </div>
               
-              <Button onClick={handleSaveSettings}>Save Preferences</Button>
+              <Button onClick={handleSaveButtonClick}>Save Preferences</Button>
             </CardContent>
           </Card>
         </TabsContent>

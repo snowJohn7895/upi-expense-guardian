@@ -56,6 +56,14 @@ const Wallets = () => {
     });
   };
   
+  const handleConnectTab = () => {
+    // Find the connect tab button and click it
+    const connectTab = document.querySelector('[value="connect"]');
+    if (connectTab && 'click' in connectTab) {
+      (connectTab as HTMLElement).click();
+    }
+  };
+  
   return (
     <div className="space-y-6">
       <div>
@@ -185,7 +193,7 @@ const Wallets = () => {
                 <p className="text-muted-foreground mb-4">
                   Connect your UPI wallets to automatically track transactions
                 </p>
-                <Button onClick={() => document.querySelector('[value="connect"]')?.click()}>
+                <Button onClick={handleConnectTab}>
                   Connect Wallet
                 </Button>
               </div>
