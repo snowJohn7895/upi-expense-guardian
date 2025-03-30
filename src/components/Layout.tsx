@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   Receipt, 
@@ -11,12 +11,12 @@ import {
   Sun,
   Moon,
   Menu,
-  X 
+  X,
+  LogOut 
 } from 'lucide-react';
 import { Button } from './ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { useNavigate } from 'react-router-dom';
 
 type NavItem = {
   path: string;
@@ -24,7 +24,11 @@ type NavItem = {
   icon: React.ReactNode;
 };
 
-const Layout = () => {
+interface LayoutProps {
+  onLogout: () => void;
+}
+
+const Layout = ({ onLogout }: LayoutProps) => {
   const { toast } = useToast();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const isMobile = useIsMobile();
@@ -48,6 +52,15 @@ const Layout = () => {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleLogout = () => {
+    onLogout();
+    toast({
+      title: "Logged Out",
+      description: "You have been successfully logged out."
+    });
+    navigate('/auth');
   };
 
   React.useEffect(() => {
@@ -134,7 +147,7 @@ const Layout = () => {
             ))}
           </nav>
           
-          <div className="pt-4 border-t">
+          <div className="pt-4 border-t space-y-2">
             <Button 
               variant="default" 
               className="w-full bg-primary hover:bg-primary/90"
@@ -148,6 +161,16 @@ const Layout = () => {
               }}
             >
               Connect UPI Wallet
+            </Button>
+            
+            {/* Add logout button */}
+            <Button
+              variant="outline"
+              className="w-full flex items-center gap-2"
+              onClick={handleLogout}
+            >
+              <LogOut size={16} />
+              Logout
             </Button>
           </div>
         </div>

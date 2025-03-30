@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -9,9 +8,12 @@ import { useToast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
 import { Mail, Phone, Eye, EyeOff, Smartphone, Lock, User } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
-import { cn } from '@/lib/utils';
 
-const Auth = () => {
+interface AuthProps {
+  onLogin: () => void;
+}
+
+const Auth = ({ onLogin }: AuthProps) => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -21,7 +23,8 @@ const Auth = () => {
   const handleSignIn = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
-    // This would be replaced with actual authentication logic
+    onLogin();
+    
     toast({
       title: "Login Successful",
       description: "Welcome back to UPI Expense Guardian!"
@@ -33,21 +36,25 @@ const Auth = () => {
   const handleSignUp = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
-    // This would be replaced with actual registration logic
+    onLogin();
+    
     toast({
       title: "Account Created",
       description: "Your account has been successfully created. Please verify your email."
     });
     
-    setActiveTab('login');
+    navigate('/onboarding');
   };
   
   const handleGoogleAuth = () => {
-    // This would be replaced with actual Google auth logic
+    onLogin();
+    
     toast({
       title: "Google Authentication",
-      description: "Google authentication is currently under development."
+      description: "Google authentication successful."
     });
+    
+    navigate('/onboarding');
   };
   
   return (

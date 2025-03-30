@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -9,7 +8,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ArrowRight, Check, CreditCard, Wallet, Plus, Target, CheckCircle2 } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
 
-// Sample category data
+interface OnboardingProps {
+  onComplete: () => void;
+}
+
 const expenseCategories = [
   { id: 'food', name: 'Food & Dining', icon: '🍔', selected: true },
   { id: 'transport', name: 'Transportation', icon: '🚗', selected: true },
@@ -27,7 +29,7 @@ const expenseCategories = [
 
 type OnboardingStep = 'welcome' | 'categories' | 'wallets' | 'budgets' | 'complete';
 
-const Onboarding = () => {
+const Onboarding = ({ onComplete }: OnboardingProps) => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState<OnboardingStep>('welcome');
@@ -55,12 +57,13 @@ const Onboarding = () => {
     if (currentIndex < stepOrder.length - 1) {
       setCurrentStep(stepOrder[currentIndex + 1]);
     } else {
-      // Complete onboarding
       handleComplete();
     }
   };
   
   const handleComplete = () => {
+    onComplete();
+    
     toast({
       title: "Onboarding Complete",
       description: "Your expense tracker is ready to use!"
@@ -70,6 +73,8 @@ const Onboarding = () => {
   };
   
   const handleSkip = () => {
+    onComplete();
+    
     toast({
       title: "Skipped Setup",
       description: "You can always configure these settings later."
