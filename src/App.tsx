@@ -16,6 +16,7 @@ import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import Auth from "./pages/Auth";
 import Onboarding from "./pages/Onboarding";
+import LandingPage from "./pages/LandingPage";
 
 const queryClient = new QueryClient();
 
@@ -80,17 +81,22 @@ const App = () => {
         <Sonner />
         <BrowserRouter>
           <Routes>
+            {/* Landing Page - New addition */}
+            <Route path="/" element={
+              isAuthenticated && isOnboarded ? <Navigate to="/dashboard" replace /> : <LandingPage />
+            } />
+            
             {/* Public routes */}
             <Route path="/auth" element={
-              isAuthenticated ? <Navigate to="/" replace /> : <Auth onLogin={handleLogin} />
+              isAuthenticated ? <Navigate to={isOnboarded ? "/dashboard" : "/onboarding"} replace /> : <Auth onLogin={handleLogin} />
             } />
             <Route path="/onboarding" element={
               !isAuthenticated ? <Navigate to="/auth" replace /> : 
-              isOnboarded ? <Navigate to="/" replace /> : <Onboarding onComplete={completeOnboarding} />
+              isOnboarded ? <Navigate to="/dashboard" replace /> : <Onboarding onComplete={completeOnboarding} />
             } />
             
             {/* Protected routes */}
-            <Route path="/" element={
+            <Route path="/dashboard" element={
               <ProtectedRoute>
                 <Layout onLogout={handleLogout} />
               </ProtectedRoute>
