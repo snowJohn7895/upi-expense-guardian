@@ -96,18 +96,18 @@ const App = () => {
             } />
             
             {/* Protected routes */}
-            <Route path="/dashboard" element={
+            <Route element={
               <ProtectedRoute>
                 <Layout onLogout={handleLogout} />
               </ProtectedRoute>
             }>
-              <Route index element={<Dashboard />} />
-              <Route path="transactions" element={<Transactions />} />
-              <Route path="transactions/add" element={<AddTransaction />} />
-              <Route path="analytics" element={<Analytics />} />
-              <Route path="wallets" element={<Wallets />} />
-              <Route path="budgets" element={<Budgets />} />
-              <Route path="settings" element={<Settings />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/transactions" element={<Transactions />} />
+              <Route path="/transactions/add" element={<AddTransaction />} />
+              <Route path="/analytics" element={<Analytics />} />
+              <Route path="/wallets" element={<Wallets />} />
+              <Route path="/budgets" element={<Budgets />} />
+              <Route path="/settings" element={<Settings />} />
             </Route>
             
             <Route path="*" element={<NotFound />} />

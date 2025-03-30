@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   Receipt, 
@@ -33,10 +33,11 @@ const Layout = ({ onLogout }: LayoutProps) => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const isMobile = useIsMobile();
   const navigate = useNavigate();
+  const location = useLocation();
   const [theme, setTheme] = React.useState<'light' | 'dark'>('light');
 
   const navItems: NavItem[] = [
-    { path: "/", label: "Dashboard", icon: <LayoutDashboard size={20} /> },
+    { path: "/dashboard", label: "Dashboard", icon: <LayoutDashboard size={20} /> },
     { path: "/transactions", label: "Transactions", icon: <Receipt size={20} /> },
     { path: "/analytics", label: "Analytics", icon: <BarChart3 size={20} /> },
     { path: "/wallets", label: "Wallets", icon: <Wallet size={20} /> },
