@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -33,6 +34,14 @@ const Settings = () => {
     toast({
       title: "Export Started",
       description: "Your data is being exported. It will be downloaded shortly.",
+    });
+  };
+  
+  // Create a separate function for password updates that doesn't expect a form event
+  const handleUpdatePassword = () => {
+    toast({
+      title: "Password Updated",
+      description: "Your password has been updated successfully.",
     });
   };
   
@@ -227,7 +236,8 @@ const Settings = () => {
                 </div>
               </div>
               
-              <Button onClick={handleSaveSettings}>Update Password</Button>
+              {/* Changed from handleSaveSettings to handleUpdatePassword */}
+              <Button onClick={handleUpdatePassword}>Update Password</Button>
             </CardContent>
           </Card>
         </TabsContent>
