@@ -2,7 +2,7 @@
 import { Request, Response, NextFunction } from 'express';
 
 // Error handling middleware
-export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
+export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction): void => {
   console.error('Error:', err);
   
   res.status(500).json({
@@ -13,7 +13,7 @@ export const errorHandler = (err: Error, req: Request, res: Response, next: Next
 };
 
 // Not found middleware
-export const notFound = (req: Request, res: Response, next: NextFunction) => {
+export const notFound = (req: Request, res: Response, next: NextFunction): void => {
   res.status(404).json({
     success: false,
     message: `Not found - ${req.originalUrl}`

@@ -3,14 +3,15 @@ import { Request, Response, NextFunction } from 'express';
 
 // Mock authentication middleware
 // In a real app, this would verify JWT tokens
-export const authenticate = (req: Request, res: Response, next: NextFunction) => {
+export const authenticate = (req: Request, res: Response, next: NextFunction): void => {
   const authHeader = req.headers.authorization;
   
   if (!authHeader) {
-    return res.status(401).json({
+    res.status(401).json({
       success: false,
       message: 'No token provided'
     });
+    return;
   }
   
   // This is a mock implementation
@@ -22,10 +23,11 @@ export const authenticate = (req: Request, res: Response, next: NextFunction) =>
     // Attach user ID to request object for use in controller
     (req as any).userId = userId;
     
-    return next();
+    next();
+    return;
   }
   
-  return res.status(401).json({
+  res.status(401).json({
     success: false,
     message: 'Invalid token'
   });
