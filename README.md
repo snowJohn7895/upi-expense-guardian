@@ -1,69 +1,107 @@
-# Welcome to your Lovable project
 
-## Project info
+# UPI Expense Guardian
 
-**URL**: https://lovable.dev/projects/8dadc9fb-06d4-4817-99ea-8a0e56d18c9f
+A comprehensive expense tracking application with UPI integration for Indian users.
 
-## How can I edit this code?
+## Project Structure
 
-There are several ways of editing your application.
+This project is organized into two main parts:
 
-**Use Lovable**
+- **Frontend**: React application built with Vite, TypeScript, and Tailwind CSS
+- **Backend**: Express API providing endpoints for all application features
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/8dadc9fb-06d4-4817-99ea-8a0e56d18c9f) and start prompting.
+## Running the Application
 
-Changes made via Lovable will be committed automatically to this repo.
+### Development Mode (Frontend and Backend together)
 
-**Use your preferred IDE**
+This will run both frontend and backend using the Vite development server with a proxy to the API:
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+```bash
+# Install dependencies
+npm install
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+The frontend will be available at [http://localhost:8080](http://localhost:8080)
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Running Backend Only
 
-**Use GitHub Codespaces**
+If you want to run the backend separately:
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```bash
+# From the project root
+cd src/backend
 
-## What technologies are used for this project?
+# Compile TypeScript to JavaScript (if needed)
+npx tsc
 
-This project is built with .
+# Start the server
+node server.js
+```
 
-- Vite
-- TypeScript
+The API will be available at [http://localhost:5000/api](http://localhost:5000/api)
+
+## Backend API Endpoints
+
+### Authentication
+- `POST /api/auth/login` - User login
+- `POST /api/auth/register` - User registration
+- `PUT /api/auth/onboarding/:userId` - Complete user onboarding
+
+### Transactions
+- `GET /api/transactions` - Get all transactions
+- `GET /api/transactions/:id` - Get transaction by ID
+- `POST /api/transactions` - Create new transaction
+- `PUT /api/transactions/:id` - Update transaction
+- `DELETE /api/transactions/:id` - Delete transaction
+
+### Wallets
+- `GET /api/wallets` - Get all wallets
+- `GET /api/wallets/:id` - Get wallet by ID
+- `POST /api/wallets` - Create new wallet
+- `PUT /api/wallets/:id` - Update wallet
+- `DELETE /api/wallets/:id` - Delete wallet
+
+### Budgets
+- `GET /api/budgets` - Get all budgets
+- `GET /api/budgets/:id` - Get budget by ID
+- `POST /api/budgets` - Create new budget
+- `PUT /api/budgets/:id` - Update budget
+- `DELETE /api/budgets/:id` - Delete budget
+
+### Analytics
+- `GET /api/analytics/expenses-by-category` - Get expenses grouped by category
+- `GET /api/analytics/monthly-transactions` - Get monthly transactions summary
+- `GET /api/analytics/recent-transactions` - Get recent transactions
+- `GET /api/analytics/summary` - Get overall transactions summary
+
+## Environment Variables
+
+Create a `.env` file in the root of the backend directory with the following variables:
+
+```
+PORT=5000
+NODE_ENV=development
+```
+
+## Technologies Used
+
+### Frontend
 - React
-- shadcn-ui
+- TypeScript
 - Tailwind CSS
+- Shadcn UI
+- React Query
+- React Router
+- Axios
 
-## How can I deploy this project?
+### Backend
+- Express
+- TypeScript
+- CORS
 
-Simply open [Lovable](https://lovable.dev/projects/8dadc9fb-06d4-4817-99ea-8a0e56d18c9f) and click on Share -> Publish.
+## Authentication
 
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+This project uses JWT for authentication. When a user logs in, a token is returned and stored in local storage. This token is then included in the Authorization header for all subsequent API requests.
